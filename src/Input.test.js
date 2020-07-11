@@ -1,0 +1,54 @@
+import React from "react";
+import { shallow, ShallowWrapper } from "enzyme";
+
+import { findByAttr, storeFactory } from "../test/testUtils";
+import Input from "./Input";
+
+/**
+ * @function setup
+ * @param {Object} initialState
+ * @returns {ShallowWrapper}
+ */
+const setup = (initialState = {}) => {
+  const store = storeFactory(initialState);
+  const wrapper = shallow(<Input store={store} />)
+    .dive()
+    .dive();
+
+  return wrapper;
+};
+
+setup();
+
+describe("Render", () => {
+  describe("Word has not been guessed", () => {
+    let wrapper;
+    beforeEach(() => {
+      const initialState = { success: false };
+      wrapper = setup(initialState);
+    });
+    test("Renders component without error", () => {
+      const component = findByAttr(wrapper, "component-input");
+      console.log(component.debug());
+      expect(component.length).toBe(1);
+    });
+    test("Renders input box", () => {
+      const inputBox = findByAttr(wrapper, "input-box");
+      expect(inputBox.length).toBe(1);
+    });
+    test("Renders submit button", () => {
+      const submitButton = findByAttr(wrapper, "submit-button");
+      expect(submitButton.length).toBe(1);
+    });
+  });
+  describe("Word has been guessed", () => {
+    test("Renders component without error", () => {});
+    test("Does not render input box", () => {});
+    test("Does not render submit button", () => {});
+  });
+});
+
+describe("Update state", () => {
+  describe("Word has not been guessed", () => {});
+  describe("Word has been guessed", () => {});
+});
