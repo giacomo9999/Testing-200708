@@ -15,12 +15,18 @@ class Input extends Component {
         </button>
       </form>
     );
-    return <div data-test="component-input">{contents}</div>;
+    return (
+      <div data-test="component-input">
+        <h1>Blah</h1>
+        <h1>{this.props}</h1>
+        {contents}
+      </div>
+    );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};
+const mapStateToProps = ({ success }) => {
+  return { success };
 };
 
 export default connect(mapStateToProps)(Input);

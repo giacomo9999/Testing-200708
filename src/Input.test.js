@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow, ShallowWrapper } from "enzyme";
+import { shallow } from "enzyme";
 
 import { findByAttr, storeFactory } from "../test/testUtils";
 import Input from "./Input";
@@ -26,10 +26,11 @@ describe("Render", () => {
     beforeEach(() => {
       const initialState = { success: false };
       wrapper = setup(initialState);
+    //   console.log("Wrapper:", wrapper.debug());
     });
     test("Renders component without error", () => {
       const component = findByAttr(wrapper, "component-input");
-      console.log(component.debug());
+      //   console.log(component.debug());
       expect(component.length).toBe(1);
     });
     test("Renders input box", () => {
@@ -42,13 +43,24 @@ describe("Render", () => {
     });
   });
   describe("Word has been guessed", () => {
-    test("Renders component without error", () => {});
-    test("Does not render input box", () => {});
-    test("Does not render submit button", () => {});
+    let wrapper;
+    beforeEach(() => {
+      const initialState = { success: true };
+      wrapper = setup(initialState);
+      console.log("Wrapper:", wrapper.debug());
+    });
+    test("Renders component without error", () => {
+      const component = findByAttr(wrapper, "component-input");
+      expect(component.length).toBe(1);
+    });
+    test("Does not render input box", () => {
+      const inputBox = findByAttr(wrapper, "input-box");
+      console.log("Input Box:", inputBox.debug());
+      expect(inputBox.length).toBe(0);
+    });
+    test("Does not render submit button", () => {
+      const submitButton = findByAttr(wrapper, "submit-button");
+      expect(submitButton.length).toBe(0);
+    });
   });
-});
-
-describe("Update state", () => {
-  describe("Word has not been guessed", () => {});
-  describe("Word has been guessed", () => {});
 });
